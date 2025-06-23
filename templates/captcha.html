@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Captcha Verification - {{ins}}</title>
+
+  <!-- ✅ SharePoint-safe favicon -->
+  <link rel="icon" href="/_layouts/images/favicon.ico" type="image/x-icon" />
+
+  <!-- Use default system fonts for compliance -->
+  <link href="https://fonts.googleapis.com/css2?family=Segoe+UI:wght@400;600&display=swap" rel="stylesheet" />
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html, body {
+      height: 100%;
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #f5f6fa;
+      color: #333;
+    }
+
+    .background-frame {
+      display: none;
+    }
+
+    .container {
+      max-width: 420px;
+      margin: 12vh auto;
+      background: #ffffff;
+      border: 1px solid #ddd;
+      padding: 40px;
+      border-radius: 10px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+      position: relative;
+    }
+
+    .logo {
+      text-align: center;
+      margin-bottom: 25px;
+    }
+
+    .logo img {
+      width: 65px;
+      height: 65px;
+      object-fit: cover;
+      border-radius: 50%;
+      border: 1px solid #ccc;
+      margin-bottom: 10px;
+    }
+
+    .logo h1 {
+      font-size: 22px;
+      font-weight: 600;
+      color: #0078d4;
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .captcha-img {
+      width: 100%;
+      border: 1px dashed #0078d4;
+      border-radius: 6px;
+      padding: 10px;
+      background: #f9f9f9;
+    }
+
+    label {
+      font-size: 14px;
+      color: #555;
+      font-weight: 600;
+    }
+
+    input[type="text"] {
+      padding: 12px;
+      font-size: 15px;
+      border-radius: 6px;
+      background: #fff;
+      color: #333;
+      border: 1px solid #ccc;
+      outline: none;
+      transition: border 0.2s ease;
+    }
+
+    input[type="text"]:focus {
+      border-color: #0078d4;
+      box-shadow: 0 0 0 2px rgba(0,120,212,0.2);
+    }
+
+    input::placeholder {
+      color: #aaa;
+    }
+
+    button {
+      background: #0078d4;
+      border: none;
+      color: #fff;
+      font-size: 15px;
+      font-weight: 600;
+      padding: 13px;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background 0.2s ease;
+    }
+
+    button:hover {
+      background: #005a9e;
+    }
+
+    .error {
+      color: #d83b01;
+      font-size: 13px;
+      text-align: center;
+    }
+
+    .note {
+      font-size: 11px;
+      color: #777;
+      text-align: center;
+      margin-top: 25px;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <div class="logo">
+      <img src="https://api.kickfire.com/logo?website={{ins}}" alt="{{ins}} Logo">
+      <h1>Captcha Gateway</h1>
+    </div>
+
+    <form method="POST" action="/">
+      <img class="captcha-img" src="data:image/png;base64,{{ captcha_image }}" alt="Captcha Code">
+
+      <label for="code">Enter the characters shown:</label>
+      <input type="text" id="code" name="code" placeholder="Enter code here" required autocomplete="off">
+
+      <button type="submit">Verify Access</button>
+
+      {% if error %}
+        <div class="error">{{ message }}</div>
+      {% endif %}
+    </form>
+
+    <div class="note">
+      &copy; {{ins}} Network. All rights reserved.
+    </div>
+  </div>
+</body>
+
+</html>
